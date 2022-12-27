@@ -18,14 +18,11 @@ class show_file extends openZip {
             echo "<div class='box no_file' >لاتوجد ملفات مضغوطة </div>" ;
         }
     }
-
-
-  
 }
 
 if(isset($_GET['show'])){
     $show_file = new show_file(new ZipArchive());
-    $show_file->Test_folderProjectOrAnyDirectory( $_GET['show']);
+    $show_file->Test_folderProjectOrAnyDirectory($_GET['path']);
     $show_file->show_all_file();
 }
 

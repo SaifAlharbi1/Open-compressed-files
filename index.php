@@ -150,7 +150,7 @@
     <div class="all_click">
             <label for="path">مسار الملفات المضغوطة</label>
             <section>
-                <input type="text" name="" id="path" value="C:/Users/saifa/Downloads">
+                <input type="text" name="" id="path" value="C:\Users\S-aif\Downloads" placeholder="C:\Users\Downloads">
                 <small>أذا لم يتم تحديد مسار سوف يظهر الملفات المضغوطة بداخل مجلد المشروع</small>
             </section>
             <!-- <input type="file" name="" id="user_chos" > -->
@@ -170,7 +170,4 @@
 <script src="index.js"></script>
 </body>
 </html>
-
-
-
 

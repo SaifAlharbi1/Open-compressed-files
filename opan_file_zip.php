@@ -8,16 +8,15 @@ use PhpParser\Node\Stmt\Echo_;
 class openZip {
 
     public $countFile; // عدد الملفات المضغوطة
-    public $folderPath = 'C:\Users\saifa\Downloads\*.zip';
+    public $folderPath = 'C:\Users\S-aif\Downloads\\*.zip';
     public $get_file ; // اسماء الملفات المضغوطة
-   
     public $class_zip; // get class ZipArchive
     public $getAllFileZip;
 
 
     function __construct($name)
     {
-      $this->class_zip = $name;
+        $this->class_zip = $name;
     }
     
 
@@ -38,10 +37,15 @@ class openZip {
     }
 
 
-
     // لفتح الملفات من المسار المحدد 
     public function count_files(){
-        $get_name_folder_zip = new GlobIterator($this->folderPath);
+        // لاخذ مسار الملفات من المسار المحدد بالحقل او من مكان ثاني
+        if($_GET['path'] != 'null'){ // للمسار المحدد بالحقل
+            $path = $_GET['path'];
+        }else {
+            $path = $this->folderPath;
+        }
+        $get_name_folder_zip = new GlobIterator($path);
         $this->countFile =  $get_name_folder_zip->count();
         $this->get_file = $get_name_folder_zip;
 
@@ -96,7 +100,6 @@ class openZip {
                             echo "<div class='box' ><strong>تم فتح ضغط الملف بنجاح</strong>";
                             echo   " <p class='nameFile'> " . $del_zip . "<br><span class='size_file'> " .$size_KB . " KB </span>" .  "</p> </div><br>" ;
                             // echo " <p class='nameFile'> " . $del_zip .  "</p> </div>" ;
-
                         } 
                     }else {
                         echo "لايوجد ملف مضغوط";
@@ -158,11 +161,14 @@ class openZip {
         if(empty($get) || $get == "/*.zip"){
             $this->getFileInfolder(getcwd());
         }
-        elseif(!empty($_GET['show'])){
-            $this->folderPath = $_GET['show'];
+        elseif(!empty($_GET['path']) && $get != 'null'){
+            $this->folderPath = $_GET['path'];
             $this->count_files();
         }
+        elseif( $get == 'null'){
+            $this->count_files();
         }
+            }
 
     function close_zip()
     {
@@ -191,14 +197,14 @@ $openZip = new openZip(new ZipArchive());
 // open with delete files
 if(isset($_GET['open'])){
     $openZip->count_files()."<br>";
-    $openZip->Test_folderProjectOrAnyDirectory($_GET['open']);
+    $openZip->Test_folderProjectOrAnyDirectory($_GET['path']);
     $openZip->openZip();
 }
 
 // open without delete
 if(isset($_GET['open_wathout_delete'])){
     $openZip->count_files()."<br>";
-    $openZip->Test_folderProjectOrAnyDirectory($_GET['open_wathout_delete']);
+    $openZip->Test_folderProjectOrAnyDirectory($_GET['path']);
     $openZip->openZaipWathoutDelete();
 }
 
