@@ -8,7 +8,7 @@ use PhpParser\Node\Stmt\Echo_;
 class openZip {
 
     public $countFile; // عدد الملفات المضغوطة
-    public $folderPath = 'C:\Users\S-aif\Downloads\\*.zip';
+    public $folderPath = '\\*.zip';
     public $get_file ; // اسماء الملفات المضغوطة
     public $class_zip; // get class ZipArchive
     public $getAllFileZip;
@@ -30,7 +30,6 @@ class openZip {
                 $file_zip[] = $file;
             }
         }
-
         $this->countFile = count($file_zip);
         $this->get_file = $file_zip;
         
@@ -39,16 +38,11 @@ class openZip {
 
     // لفتح الملفات من المسار المحدد 
     public function count_files(){
-        // لاخذ مسار الملفات من المسار المحدد بالحقل او من مكان ثاني
-        if($_GET['path'] != 'null'){ // للمسار المحدد بالحقل
-            $path = $_GET['path'];
-        }else {
-            $path = $this->folderPath;
-        }
+
+        $path = $_GET['path'];
         $get_name_folder_zip = new GlobIterator($path);
         $this->countFile =  $get_name_folder_zip->count();
         $this->get_file = $get_name_folder_zip;
-
         return  $this->countFile ;
     }
 
@@ -102,6 +96,7 @@ class openZip {
                             // echo " <p class='nameFile'> " . $del_zip .  "</p> </div>" ;
                         } 
                     }else {
+
                         echo "لايوجد ملف مضغوط";
                     }
             
@@ -158,17 +153,15 @@ class openZip {
     // ضغط الملفات واظهار من مجلد المشروع او من اي مجلد بالجهاز
     function Test_folderProjectOrAnyDirectory($get){
         
-        if(empty($get) || $get == "/*.zip"){
+        
+        if(trim($get) == 'null'){
             $this->getFileInfolder(getcwd());
         }
         elseif(!empty($_GET['path']) && $get != 'null'){
             $this->folderPath = $_GET['path'];
             $this->count_files();
-        }
-        elseif( $get == 'null'){
-            $this->count_files();
-        }
             }
+        }
 
     function close_zip()
     {

@@ -1,9 +1,9 @@
-const input_value = document.getElementById('path').value;
-let name_zip = input_value + "\\*.zip";
 
 // with delete file 
 function ajax_opan_zip(id){
-
+    const input_value = document.getElementById('path').value;
+    let name_zip = input_value + "\\*.zip";
+    
     let url = [];
     if(id === "send"){
             url = "opan_file_zip.php?open=";
@@ -27,8 +27,14 @@ function ajax_opan_zip(id){
             hide_bottom(this.responseText);
         }
     }
+    console.log(input_value);
+    if(input_value != ""){
+        xhttp.open("GET", url + name_zip +"&& path="+name_zip);
+    }else{
+        console.log(name_zip)
+        xhttp.open("GET", url + name_zip +"&& path=null");
 
-    xhttp.open("GET", url + name_zip +"&& path="+name_zip);
+    }
     xhttp.send();
 
 }
@@ -37,7 +43,8 @@ function ajax_opan_zip(id){
 // jast delete 
 
 function wathout_opan_zip(){
-
+    const input_value = document.getElementById('path').value;
+    let name_zip = input_value + "\\*.zip";
     let url = "opan_file_zip.php?open_wathout_delete=";
     const xhttp = new XMLHttpRequest();
 
@@ -54,7 +61,13 @@ function wathout_opan_zip(){
     }
     //   console.log(this.responseText);
     }
-    xhttp.open("GET", url + name_zip  +"&& path="+name_zip);
+    
+    if(input_value != ""){
+        xhttp.open("GET", url + name_zip +"&& path="+name_zip);
+    }else{
+        xhttp.open("GET", url + name_zip +"&& path=null");
+
+    }
     xhttp.send();
 
 }
